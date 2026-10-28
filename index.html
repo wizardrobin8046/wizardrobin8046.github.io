@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WizardRobin — UE5 documentation, tutorial videos &amp; systems</title>
+<meta name="description" content="UE5 developer helping Unreal asset creators, plugin makers and small teams turn their work into professional, usable packages: clear documentation, short tutorial videos and structured system design.">
+<meta property="og:title" content="WizardRobin — UE5 documentation, tutorial videos &amp; systems">
+<meta property="og:description" content="Clean technical docs, short tutorial videos and structured UE5 systems for asset creators, plugin makers and small teams.">
+<meta property="og:image" content="assets/banner_1500x500.png">
+<meta name="theme-color" content="#1a1f36">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#141830; --bg2:#1a1f36; --card:#20264a; --card2:#262d57;
+  --line:rgba(255,255,255,.09); --text:#f1f4fb; --muted:#aeb7d1;
+  --violet:#b197fc; --amber:#ffc93c; --coral:#ff5c70;
+  --r:18px; --max:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+section{padding:76px 0;position:relative}
+h1,h2,h3{line-height:1.15;margin:0;letter-spacing:-.02em}
+h2{font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:12px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--violet);margin-bottom:14px}
+.lead{color:var(--muted);font-size:18px;max-width:640px;margin:0 0 40px}
+/* brand marks */
+.marks{display:inline-flex;gap:7px;align-items:center}
+.marks i{display:block;width:14px;height:14px}
+.marks .hex{background:var(--violet);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.marks .dia{background:var(--amber);transform:rotate(45deg) scale(.78)}
+.marks .cir{background:var(--coral);border-radius:50%}
+/* nav */
+nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:rgba(20,24,48,.78);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;text-decoration:none;letter-spacing:-.01em}
+.links{display:flex;gap:26px;font-size:15px;font-weight:500}
+.links a{text-decoration:none;color:var(--muted);transition:color .15s}
+.links a:hover{color:var(--text)}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 24px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;border:1px solid transparent;transition:transform .15s,box-shadow .15s,background .15s;cursor:pointer}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:linear-gradient(135deg,var(--violet),#8f6df5);color:#15122b;box-shadow:0 10px 30px -10px rgba(177,151,252,.7)}
+.btn.ghost{border-color:rgba(255,255,255,.22);color:var(--text);background:rgba(255,255,255,.03)}
+.btn.ghost:hover{background:rgba(255,255,255,.08)}
+/* hero */
+.hero{padding:56px 0 40px;background:radial-gradient(900px 500px at 82% 30%,rgba(177,151,252,.22),transparent 60%),radial-gradient(500px 360px at 96% 8%,rgba(255,92,112,.14),transparent 70%),radial-gradient(500px 300px at 55% 100%,rgba(255,201,60,.08),transparent 70%)}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:56px 56px;mask-image:linear-gradient(#000 30%,transparent);-webkit-mask-image:linear-gradient(#000 30%,transparent);pointer-events:none}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;align-items:end;gap:20px;position:relative}
+.hero-copy{padding:30px 0 60px;align-self:center}
+.wordmark{display:flex;align-items:center;gap:14px;font-size:26px;font-weight:800;letter-spacing:-.02em;margin-bottom:18px}
+.wordmark .marks i{width:18px;height:18px}
+.hero h1{font-size:clamp(38px,5.6vw,64px);font-weight:800;margin:6px 0 20px}
+.grad{background:linear-gradient(100deg,var(--violet),var(--coral) 60%,var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.sub{font-size:19px;color:var(--muted);max-width:560px;margin:0 0 32px}
+.cta{display:flex;flex-wrap:wrap;gap:14px}
+.hero-art{position:relative;display:flex;justify-content:center;align-items:flex-end}
+.hero-art img{width:min(100%,380px);filter:drop-shadow(0 20px 40px rgba(0,0,0,.45));position:relative;z-index:1}
+.shape{position:absolute;z-index:0}
+.s-hex{width:90px;height:90px;top:6%;left:4%;background:rgba(177,151,252,.25);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.s-dia{width:56px;height:56px;bottom:22%;left:0;border:3px solid var(--amber);transform:rotate(45deg)}
+.s-cir{width:70px;height:70px;top:30%;right:0;border:3px solid var(--coral);border-radius:50%}
+/* links */
+.linkgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.linkgrid a{display:flex;align-items:center;gap:12px;padding:16px 18px;border-radius:14px;background:var(--card);border:1px solid var(--line);text-decoration:none;font-weight:600;transition:transform .15s,border-color .15s,background .15s}
+.linkgrid a:hover{transform:translateY(-3px);border-color:var(--violet);background:var(--card2)}
+.linkgrid a.pending{display:none}
+.linkgrid svg{width:22px;height:22px;flex:none;fill:currentColor;color:var(--violet)}
+.linkgrid a.fab{border-color:rgba(255,201,60,.5)}
+.linkgrid a.fab svg{color:var(--amber)}
+.linkgrid small{display:block;font-weight:500;color:var(--muted);font-size:12.5px;line-height:1.2}
+.links-sec{padding:44px 0 30px}
+/* about */
+.about .wrap{display:grid;grid-template-columns:.7fr 1.3fr;gap:56px;align-items:center}
+.about-art{position:relative;width:100%;max-width:360px;aspect-ratio:4/5;margin:0 auto;border-radius:28px;overflow:hidden;background:linear-gradient(160deg,rgba(177,151,252,.3),rgba(255,92,112,.16));border:1px solid var(--line);display:flex;justify-content:center;align-items:flex-start}
+.about-art img{width:100%;margin-top:5%}
+.about p{color:var(--muted);font-size:18px;margin:0 0 16px}
+.about p strong{color:var(--text);font-weight:600}
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.pill{font-size:14px;font-weight:600;padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.04)}
+.pill:nth-child(1){color:var(--violet)}.pill:nth-child(2){color:var(--amber)}.pill:nth-child(3){color:var(--coral)}
+/* services */
+.services{background:linear-gradient(var(--bg),var(--bg2) 30%,var(--bg2) 70%,var(--bg))}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:stretch}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:28px 24px;display:flex;flex-direction:column;position:relative}
+.card .ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;margin-bottom:18px;background:rgba(255,255,255,.05)}
+.card .ico i{display:block;width:20px;height:20px}
+.card:nth-child(1) .ico i{background:var(--violet);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.card:nth-child(2) .ico i{background:var(--amber);transform:rotate(45deg) scale(.78)}
+.card:nth-child(3) .ico i{background:var(--coral);border-radius:50%}
+.card:nth-child(4) .ico i{background:linear-gradient(135deg,var(--violet),var(--coral));border-radius:4px}
+.card h3{font-size:20px;font-weight:700;margin-bottom:10px}
+.card p{color:var(--muted);font-size:15px;margin:0 0 22px;flex:1}
+.price{font-size:22px;font-weight:800;padding-top:16px;border-top:1px solid var(--line)}
+.price small{display:block;font-size:12.5px;font-weight:500;color:var(--muted)}
+.card.featured{background:linear-gradient(170deg,#2c2f66,var(--card) 70%);border-color:rgba(255,201,60,.65);box-shadow:0 18px 50px -20px rgba(255,201,60,.35);transform:translateY(-8px)}
+.badge{position:absolute;top:-13px;left:24px;background:var(--amber);color:#2a1f00;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:99px}
+.how{margin-top:56px;display:grid;grid-template-columns:1fr 1.6fr;gap:40px;padding:34px;border-radius:var(--r);border:1px dashed rgba(177,151,252,.4);background:rgba(255,255,255,.02)}
+.how h3{font-size:22px;margin-bottom:8px}
+.how > div:first-child p{color:var(--muted);margin:0}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:16px;counter-reset:s}
+.steps li{counter-increment:s;display:flex;gap:16px;align-items:flex-start;color:var(--muted)}
+.steps li::before{content:counter(s);flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:14px;color:#15122b;background:var(--violet)}
+.steps li:nth-child(2)::before{background:var(--amber)}.steps li:nth-child(3)::before{background:var(--coral)}
+.steps b{color:var(--text)}
+.termlist{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:8px;font-size:14.5px;color:var(--muted)}
+.termlist li{padding-left:22px;position:relative}
+.termlist li::before{content:"";position:absolute;left:2px;top:.55em;width:8px;height:8px;background:var(--amber);transform:rotate(45deg)}
+/* work */
+.work-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:24px}
+.work{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+.work .thumb{aspect-ratio:16/9;background:#0f1328;overflow:hidden}
+.work .thumb img{width:100%;height:100%;object-fit:cover}
+.work .body{padding:24px 26px 28px;display:flex;flex-direction:column;gap:10px;flex:1}
+.tag{align-self:flex-start;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:99px}
+.tag.v{color:var(--violet);background:rgba(177,151,252,.14)}.tag.a{color:var(--amber);background:rgba(255,201,60,.14)}
+.work h3{font-size:22px}
+.work p{margin:0;color:var(--muted);font-size:15.5px}
+.work .btn{align-self:flex-start;margin-top:auto;padding:11px 18px;font-size:15px}
+.work.dev .thumb{background:radial-gradient(300px 200px at 60% 40%,rgba(177,151,252,.35),transparent 70%),linear-gradient(150deg,rgba(255,92,112,.22),#161b38 70%);display:flex;justify-content:center;align-items:flex-end;position:relative}
+.work.dev .thumb img{width:auto;height:92%;object-fit:contain}
+.soon{margin-top:26px;text-align:center;color:var(--muted);font-size:15px}
+/* contact */
+.contact{padding:70px 0 90px}
+.contact-box{border-radius:26px;padding:48px;background:radial-gradient(500px 280px at 85% 20%,rgba(177,151,252,.28),transparent 70%),linear-gradient(135deg,#262c5c,#1c2142);border:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;overflow:hidden;position:relative}
+.contact-box h2{margin-bottom:8px}
+.contact-box p{margin:0;color:var(--muted);max-width:480px}
+.contact-box .side{display:flex;align-items:center;gap:26px}
+.contact-box img{height:190px;width:auto;max-width:none;margin:-48px 0 -48px;filter:drop-shadow(0 12px 24px rgba(0,0,0,.4))}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer a{text-decoration:none}footer a:hover{color:var(--text)}
+/* responsive */
+@media (max-width:1020px){
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .card.featured{transform:none}
+  .linkgrid{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:820px){
+  section{padding:60px 0}
+  .links{display:none}
+  .hero .wrap,.about .wrap,.work-grid,.how,.contact-box{grid-template-columns:1fr}
+  .hero-copy{padding:20px 0 0;text-align:left}
+  .hero-art{max-height:440px;overflow:hidden;align-items:flex-start}
+  .hero-art img{width:min(78%,320px)}
+  .about .wrap{gap:36px}
+  .about-art{max-width:300px;aspect-ratio:4/4.6}
+  .contact-box{padding:32px 24px}
+  .contact-box .side{flex-direction:column;align-items:flex-start}
+  .contact-box img{display:none}
+}
+@media (max-width:560px){
+  .wrap{padding:0 18px}
+  .cards{grid-template-columns:1fr}
+  .linkgrid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .linkgrid a{padding:14px;font-size:15px}
+  .how{padding:24px 20px}
+  .btn{width:100%}
+  .cta{flex-direction:column}
+  .hero p.sub{font-size:17px}
+  .lead{font-size:16.5px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top"><span class="marks"><i class="hex"></i><i class="dia"></i><i class="cir"></i></span>WizardRobin</a>
+    <div class="links">
+      <a href="#about">About</a><a href="#services">Services</a><a href="#work">Work</a><a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="wordmark"><span class="marks"><i class="hex"></i><i class="dia"></i><i class="cir"></i></span>WizardRobin</div>
+      <h1>Turn your Unreal work into a <span class="grad">professional package.</span></h1>
+      <p class="sub">I'm a UE5 developer specializing in clean technical documentation, short tutorial videos and structured system design — AI-accelerated for speed, with clear architecture and polished final deliverables. I help Unreal asset creators, plugin makers and small teams ship work people can actually use.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://www.fab.com/sellers/Wizard%20Robin" target="_blank" rel="noopener">See GenesisCore on Fab &rarr;</a>
+        <a class="btn ghost" href="#services">Services</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <span class="shape s-hex"></span><span class="shape s-dia"></span><span class="shape s-cir"></span>
+      <img src="assets/mascot_hero.webp" alt="WizardRobin mascot, an anime-style character with pink hair, winking and pointing at you" width="658" height="1100">
+    </div>
+  </div>
+</header>
+
+<!-- ============ PROFILE LINKS ============ -->
+<section class="links-sec" id="links">
+  <div class="wrap">
+    <!-- TODO (Dimitri): links with class="pending" are hidden until you replace href="#" with the real URL and delete the "pending" class (Epic Dev Community, Discord, LinkedIn, Fiverr). -->
+    <div class="linkgrid">
+      <a class="fab" href="https://www.fab.com/sellers/Wizard%20Robin" target="_blank" rel="me noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Zm0 2.3 6.9 3.8L12 12 5.1 8.1 12 4.3Zm-7 5.5 6 3.4v6.9l-6-3.4V9.8Zm8 10.3v-6.9l6-3.4v6.9l-6 3.4Z"/></svg>
+        <span>Fab<small>GenesisCore &amp; assets</small></span></a>
+      <a href="https://x.com/WizardRobin8046" target="_blank" rel="me noopener" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.2 2.5h3.3l-7.2 8.3 8.5 11.2h-6.7l-5.2-6.8-6 6.8H1.6l7.7-8.8L1.2 2.5H8l4.7 6.2 5.5-6.2Zm-1.2 17.5h1.8L7 4.4H5.1L17 20Z"/></svg><span>X</span></a>
+      <a href="https://www.youtube.com/@wizardrobin" target="_blank" rel="me noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.900.5A3 3 0 0 0 1 7.200C.5 9.100.5 12 .5 12s0 2.900.5 4.800a3 3 0 0 0 2.100 2.100c1.900.5 8.900.5 8.900.5s7 0 8.900-.5a3 3 0 0 0 2.100-2.100c.5-1.900.5-4.800.5-4.800s0-2.900-.5-4.800ZM9.700 15.500v-7l6 3.500-6 3.500Z"/></svg><span>YouTube</span></a>
+      <!-- TODO: Epic Developer Community profile URL -->
+      <a class="pending" href="#" aria-label="Epic Developer Community"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2h14a1 1 0 0 1 1 1v13.500a2 2 0 0 1-1 1.700L12 22l-7-4.800a2 2 0 0 1-1-1.700V3a1 1 0 0 1 1-1Zm2.500 4.500v2h6v1.800h-6v2h6V14h-6v2h8.500V6.500H7.500Z"/></svg><span>Epic Dev Community</span></a>
+      <!-- TODO: Discord invite URL -->
+      <a class="pending" href="#" aria-label="Discord"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.300 4.400A19.800 19.800 0 0 0 15.400 3l-.2.500a18.300 18.300 0 0 0-6.400 0L8.600 3a19.700 19.700 0 0 0-4.900 1.400C.6 9 -.200 13.500.2 17.900a19.900 19.900 0 0 0 6 3l1.300-2.100-2-1 .5-.4a14.200 14.200 0 0 0 12 0l.5.400-2 1 1.300 2.100a19.800 19.800 0 0 0 6-3c.5-5.100-.8-9.600-3.500-13.500ZM8.500 15.200c-1.200 0-2.100-1.100-2.100-2.400s.9-2.400 2.100-2.400 2.100 1.100 2.100 2.400-.9 2.400-2.100 2.400Zm7 0c-1.200 0-2.100-1.100-2.100-2.400s.9-2.400 2.100-2.400 2.100 1.100 2.100 2.400-.9 2.400-2.100 2.400Z"/></svg><span>Discord</span></a>
+      <a href="https://www.instagram.com/wizardrobin8046/" target="_blank" rel="me noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.500 2h9A5.500 5.500 0 0 1 22 7.500v9a5.500 5.500 0 0 1-5.500 5.500h-9A5.500 5.500 0 0 1 2 16.500v-9A5.500 5.500 0 0 1 7.500 2Zm0 2A3.500 3.500 0 0 0 4 7.500v9A3.500 3.500 0 0 0 7.500 20h9a3.500 3.500 0 0 0 3.500-3.500v-9A3.500 3.500 0 0 0 16.500 4h-9ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.300-3.300a1.200 1.200 0 1 1 0 2.400 1.200 1.200 0 0 1 0-2.400Z"/></svg><span>Instagram</span></a>
+      <!-- TODO: LinkedIn profile URL -->
+      <a class="pending" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.900 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM3 8.800h3.800V21H3V8.800Zm6.200 0h3.600v1.700h.1c.5-.9 1.700-2 3.600-2 3.800 0 4.500 2.500 4.500 5.700V21h-3.800v-5.900c0-1.400 0-3.200-2-3.200s-2.200 1.500-2.200 3.100V21H9.200V8.800Z"/></svg><span>LinkedIn</span></a>
+      <!-- TODO: Fiverr profile URL -->
+      <a class="pending" href="#" aria-label="Fiverr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 8.500h-2.200V7.400c0-.7.400-.9 1-.9h1.200V3.300h-2.200C15.500 3.300 14 4.800 14 7v1.500h-5.200V7.400c0-.7.400-.9 1-.9H11V3.300H8.800C6.300 3.300 4.900 4.800 4.900 7v1.500H3v3h1.900V21h3.900v-9.500h5.200V21h3.800v-9.500H20v-3Z"/></svg><span>Fiverr</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-art"><img src="assets/mascot_bio.webp" alt="Anime-style mascot making a peace sign" width="630" height="900"></div>
+    <div>
+      <span class="eyebrow">About</span>
+      <h2>Hi, I'm WizardRobin.</h2>
+      <p>I'm a <strong>UE5 developer</strong> who loves turning complex systems into something people can pick up and use. I built <strong>GenesisCore</strong> — an Unreal Engine 5.8 game template available on Fab — and shipped it with full documentation and a tutorial video series.</p>
+      <p>Now I help <strong>asset creators, plugin makers and small teams</strong> do the same: clear structure, honest documentation and a polished presentation, delivered fast without cutting corners.</p>
+      <div class="pills"><span class="pill">Documentation</span><span class="pill">Tutorial videos</span><span class="pill">System design</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="services" id="services">
+  <div class="wrap">
+    <span class="eyebrow">Services</span>
+    <h2>Packages built around your project</h2>
+    <p class="lead">Fixed-scope packages, so you know what you get before we start.</p>
+    <div class="cards">
+      <article class="card">
+        <div class="ico"><i></i></div>
+        <h3>Documentation Package</h3>
+        <p>I take your Unreal Engine project (template, plugin or asset pack), analyze the code and Blueprints, and deliver a detailed, highly technical <b>.md</b> file suitable for both humans and AI — plus a clean, styled PDF with clear structure, columns and visual organization that explains how the system works, step by step.</p>
+        <div class="price">$450–650<small>Delivery: 3–5 days</small></div>
+      </article>
+      <article class="card featured">
+        <span class="badge">Most popular</span>
+        <div class="ico"><i></i></div>
+        <h3>Tutorial Video Package</h3>
+        <p>Documentation plus a short, professional, voiced tutorial video. Includes script, AI voiceover, animated character overlay, motion graphics and editing in DaVinci Resolve — built directly from the documentation so both stay consistent.</p>
+        <div class="price">$750–950<small>Delivery: 5–8 days</small></div>
+      </article>
+      <article class="card">
+        <div class="ico"><i></i></div>
+        <h3>Landing Page Package</h3>
+        <p>A simple, clean one-page website for your product, tool or personal brand. You provide logos, images and style notes; I handle layout, structure and basic functionality.</p>
+        <div class="price">$400–600<small>Delivery: 3–5 days</small></div>
+      </article>
+      <article class="card">
+        <div class="ico"><i></i></div>
+        <h3>UE5 Systems &amp; Freelance Coding</h3>
+        <p>Custom UE5 systems and tools with architecture-first design. I define the structure and systems first, then use AI to implement them cleanly — the same approach used to build GenesisCore.</p>
+        <div class="price">$65–85/hr<small>or fixed quote · scoped per project</small></div>
+      </article>
+    </div>
+
+    <div class="how">
+      <div>
+        <h3>How it works</h3>
+        <p>Simple, predictable, no surprises.</p>
+        <ul class="termlist">
+          <li>50% deposit to start, balance on delivery</li>
+          <li>One revision round included</li>
+          <li>Delivery times as listed on each package</li>
+          <li>Payment by invoice (Stripe or PayPal)</li>
+        </ul>
+      </div>
+      <ol class="steps">
+        <li><span><b>Send your project &amp; goals.</b> Tell me what you've built and what you need.</span></li>
+        <li><span><b>Fixed quote &amp; timeline.</b> You get a clear price and delivery date, then a 50% deposit starts the work.</span></li>
+        <li><span><b>Delivery &amp; one revision round.</b> I deliver, you pay the balance, and I refine it once with your feedback.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURED WORK ============ -->
+<section id="work">
+  <div class="wrap">
+    <span class="eyebrow">Featured work</span>
+    <h2>Things I've built</h2>
+    <p class="lead">Real projects, built the same way I'll work on yours.</p>
+    <div class="work-grid">
+      <article class="work">
+        <div class="thumb"><picture><source srcset="assets/genesiscore_cover.webp" type="image/webp"><img src="assets/genesiscore_cover.jpg" alt="GenesisCore — Unreal Engine 5.8 game template cover art" width="960" height="540"></picture></div>
+        <div class="body">
+          <span class="tag v">Available on Fab</span>
+          <h3>GenesisCore</h3>
+          <p>An Unreal Engine 5.8 C++ game template: build any 3D game by placing actors and tags. Ships with full documentation and a tutorial video series.</p>
+          <a class="btn primary" href="https://www.fab.com/sellers/Wizard%20Robin" target="_blank" rel="noopener">View on Fab &rarr;</a>
+        </div>
+      </article>
+      <article class="work dev">
+        <div class="thumb"><img src="assets/mascot_work.webp" alt="Anime-style mascot with a hand on her hip, smiling" width="685" height="800"></div>
+        <div class="body">
+          <span class="tag a">In development</span>
+          <h3>Callidice 2.0</h3>
+          <p>A full game built on GenesisCore — proof the template scales from prototype to production.</p>
+        </div>
+      </article>
+    </div>
+    <!-- TODO (Dimitri): add "Overtime" card here once the client has given permission to show it. Deliberately left out for now. -->
+    <p class="soon">Portfolio coming soon — more case studies on the way.</p>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-box">
+      <div>
+        <h2>Have a project in mind?</h2>
+        <p>Send me a short note about your project and goals, and I'll get back to you with a fixed quote and timeline.</p>
+      </div>
+      <div class="side">
+                <a class="btn primary" href="mailto:Wrobin8046@gmail.com?subject=Project%20inquiry%20%E2%80%94%20WizardRobin">Email me</a>
+        <img src="assets/mascot_contact.webp" alt="" width="436" height="800">
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 WizardRobin</span>
+        <a href="mailto:Wrobin8046@gmail.com">Wrobin8046@gmail.com</a>
+  </div>
+</footer>
+
+</body>
+</html>
